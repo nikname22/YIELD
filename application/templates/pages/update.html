@@ -1,0 +1,42 @@
+{% extends 'pages/base.html' %} {% block conteudo %}
+
+<form action="{% url 'update' project.id_project %}" method="post">
+    {% csrf_token %}
+    <div class="flex_container">
+        <h1>Editar projeto</h1>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Nome do projeto</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="projeto"
+                value="{{project.projeto}}" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Latitude</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="latitude"
+                value="{{project.latitude}}" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Longitude</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="longitude"
+                value="{{project.longitude}}" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Tir.média</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tir_media"
+                value="{{project.tir_media}}" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Total captado</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="total_captado"
+                value="{{project.total_captado}}" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Valor de venda</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="vgv" value="{{project.vgv}}" />
+        </div>
+        <button type="submit" class="btn btn-primary button_style">
+            Editar
+        </button>
+    </div>
+</form>
+
+{% endblock %}

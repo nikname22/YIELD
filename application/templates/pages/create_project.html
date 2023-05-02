@@ -1,0 +1,37 @@
+{% extends 'pages/base.html' %} {% block conteudo %}
+
+<form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+    <div class="flex_container">
+        <h1>Criar projeto</h1>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Nome do projeto</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="projeto" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Latitude</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="latitude" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Longitude</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="longitude" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Tir.média</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="tir_media" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Total captado</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="total_captado" />
+        </div>
+        <div class="mb-3 w-50">
+            <label for="exampleFormControlInput1" class="form-label">Valor de venda</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="vgv" />
+        </div>
+        <button type="submit" class="btn btn-primary button_style">
+            Criar
+        </button>
+    </div>
+</form>
+
+{% endblock %}

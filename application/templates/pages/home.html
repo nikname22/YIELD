@@ -1,0 +1,89 @@
+{% extends 'pages/base.html' %} {% block conteudo %}
+
+<div
+    style="width: 70%; display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin: 25px auto 25px auto;">
+    <h1 class="title-class" style="color: black; text-align: center;">
+        <span style="text-decoration: underline; text-underline-offset: 5px;">YIELD</span> - Comparador de rentabilidade
+    </h1>
+    <div>
+        {% if page.object_list|length == 0 %}
+        <a class="btn btn-primary ml-5 button_style" href="{% url 'populate_database' %}">
+            Popular banco
+        </a>
+        {% endif %}
+    </div>
+    <!-- <div>
+        <a class="btn btn-primary ml-10 button_style" href="{% url 'delete_database' %}">
+            Deletar banco
+        </a>
+    </div> -->
+</div>
+
+{% if page.object_list|length > 0 %}
+<div style="display: flex; justify-content: center">
+    <form class="row g-3" style="width: 70%" action="{% url 'home' %}" method="post">
+        {% csrf_token %}
+        <div class="col-auto">
+            <input name="filter_project" type="text" class="form-control" id="inputPassword2"
+                placeholder="Nome do projeto" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3 button_style">
+                Buscar
+            </button>
+        </div>
+    </form>
+</div>
+<div class="accordion_container">
+    <div class="accordion" id="accordionExample" style="width: 70%">
+        {% for project in page.object_list %}
+        <div class="accordion-item" style="margin-bottom: 25px">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true"
+                    aria-controls="collapse{{ forloop.counter }}">
+                    {{project.projeto}}
+                </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                <div class="accordion_buttons accordion-body ">
+                    <div>
+                        <span style="font-size: 20px">Rentabilidade anual: {{project.tir_media}}%</span>
+                    </div>
+                    <div class="accordion_button">
+                        <a class="btn btn-primary" href="{% url 'compare' project.id_project %}"
+                            style="background-color: #212529; color: #fff; border: none">
+                            Comparar
+                        </a>
+                        <a class="btn btn-primary button_style" href="{% url 'edit' project.id_project %}"
+                            style="margin-left: 5px;">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'delete' project.id_project %}"
+                            style=" border: none; margin-left: 5px;">
+                            Deletar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div style="width: 70%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center; margin: 25px auto 25px auto;">
+    {% if page.has_previous %}
+    <a class="btn btn-primary button_style" style="margin-right: 10px;" href="{% url 'home' %}?page={{page.previous_page_number}}">Anterior</a>
+    {% endif %}
+    {% if page.has_next %}
+    <a class="btn btn-primary button_style" href="{% url 'home' %}?page={{page.next_page_number}}">Próximo</a>
+    {% endif %}
+</div>
+
+{% else %}
+<div style="display: flex; justify-content: center;">
+    <span class="empty_message">Não há dados para serem exibidos!</span>
+</div>
+{% endif %}
+{% endblock %}

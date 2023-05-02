@@ -1,0 +1,81 @@
+{% extends 'pages/base.html' %} {% block conteudo %}
+<div class="container flex_container">
+    <h1 style="margin-bottom: 25px;">Comparador</h1>
+    <div style="width: 100%; margin-bottom: 50px;">
+        <h4>Detalhes do projeto:</h4>
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Projeto</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col" style="white-space: nowrap;">Total captado</th>
+                    <th scope="col" style="white-space: nowrap;">Valor de venda</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-success" style="font-weight: 600;">
+                    <td>{{project.projeto}}</td>
+                    <td style="white-space: wrap;">{{address}}</td>
+                    <td style="white-space: nowrap;">R$ {{project.total_captado}}</td>
+                    <td style="white-space: nowrap;">R$ {{project.vgv}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-5 w-100">
+        <h4 style="margin-bottom: 25px;">Selecionar comparador:</h4>
+        <form action="{% url 'compare_stock' project.id_project %}">
+            <div class="m-3" style="display: flex; justify-content: center;">
+                <div class="compare_input_size">
+                    <label for="exampleFormControlInput1" class="form-label">Selecionar período:</label>
+                    <select class="form-select" aria-label="Default select example" name="period_selector">
+                        {% for period in periods %}
+                        {% if period_selected == period %}
+                        <option value="{{period}}" selected>{{period}}</option>
+                        {% else %}
+                        <option value="{{period}}">{{period}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="compare_inputs_container">
+                <div class="compare_input_size">
+                    <div>
+                        <label for="exampleFormControlInput1" class="form-label">Projeto:</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="projeto"
+                            value="{{project.projeto}}" />
+                    </div>
+                </div>
+                <h1>X</h1>
+                <div class="compare_input_size">
+                    <label for="exampleFormControlInput1" class="form-label">Selecionar ativo:</label>
+                    <select class="form-select" aria-label="Default select example" name="stock_selector">
+                        {% for ticker in tickers %}
+                        {% if stock_selected == ticker %}
+                        <option value="{{ticker}}" selected>{{ticker}}</option>
+                        {% else %}
+                        <option value="{{ticker}}">{{ticker}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="compare_button">
+                    <button type="submit" class="btn btn-primary button_style">                        
+                        Comparar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if stock_selected != '' %}
+    <div class="w-100 mb-5 card flex_container">
+        <span style="font-size: 20px; font-weight: 600; margin: 10px;">Um ano de rentabilidade do {{project.projeto}},
+            contra {{period_selected}} do ativo {{stock_selected}}.</span>
+        <div class="graph_size">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
