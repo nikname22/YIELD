@@ -2,12 +2,12 @@
 - ter o python na versão 3.6.7 instalado
 - rodar os seguintes comandos no cmd:
 ```  
-    + python -m venv env
-    + .\env\Scripts\Activate.bat
-    + pip install -r requirements.txt
-    + python manage.py makemigrations
-    + python manage.py migrate
-    + python manage.py runserver	
+    python -m venv env
+    .\env\Scripts\Activate.bat
+    pip install -r requirements.txt
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py runserver	
 ``` 
 	  	
 ## Objetivo do projeto:
